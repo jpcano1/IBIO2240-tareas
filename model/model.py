@@ -97,4 +97,3 @@ class Functions:
     @staticmethod
     def last_n_numbers(num):
         """  """
-        
