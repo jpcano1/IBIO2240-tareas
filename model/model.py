@@ -90,10 +90,41 @@ class Functions:
             return "the number is odd"
 
     @staticmethod
-    def num_in_array(num):
-        # Pendiente
-        pass
+    def num_in_array(num, array=[1, 2, 3, 4, 5, 6, 7, 8]):
+        """
+            9 - Method that looks for the number of times
+            a number appears on an array
+            :param array: the array to be analyzed
+            :param num: The num to looked for
+            :return: The number of times the number appears
+        """
+        cont = 0
+        for i in range(len(array)):
+            if num == array[i]:
+                cont+=1
+        return cont
 
     @staticmethod
-    def last_n_numbers(num):
-        """  """
+    def last_n_numbers(num, word="Hola mundo"):
+        """
+            10 - method that returns the last n characters in of an array
+            :param num: the last n characters in the array
+            :param word: The character to be cut
+            :return: the string cut
+        """
+        return word[num: len(word)]
+
+    @staticmethod
+    def sumation(num1, num2, num3):
+        """
+            11 - Function that calculates the sum of three numbers
+            :param num1: the first number
+            :param num2: the second number
+            :param num3: the third number
+            :return: the sum
+        """
+        if (num1==num2) and (num2==num3):
+            return 0
+        return num1 + num2 + num3
+
+
