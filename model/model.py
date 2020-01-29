@@ -7,6 +7,12 @@ class Functions:
         pass
 
     @staticmethod
+    def abs(x):
+        if x < 0:
+            return -x
+        return x
+
+    @staticmethod
     def circle_radius(radius) -> float:
         """
             1. Calculates the circle area
@@ -140,7 +146,7 @@ class Functions:
         return cont / len(array)
 
     @staticmethod
-    def variance(array):
+    def desv_est(array):
         """
             Calculates the varianze of an array
             :param array: the array to be examined
@@ -150,7 +156,7 @@ class Functions:
         cont = 0
         for i in array:
             cont += (i - average)**2
-        return cont / len(array)
+        return (cont / len(array))**(1/2)
 
 
     @staticmethod
