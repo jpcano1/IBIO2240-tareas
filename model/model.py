@@ -127,4 +127,57 @@ class Functions:
             return 0
         return num1 + num2 + num3
 
+    @staticmethod
+    def average(array):
+        """
+            Calculates the average in an array
+            :param array: the array to be examined
+            :return: the average in the array
+        """
+        cont = 0
+        for i in array:
+            cont += i
+        return cont / len(array)
+
+    @staticmethod
+    def variance(array):
+        """
+            Calculates the varianze of an array
+            :param array: the array to be examined
+            :return: the variance of the array
+        """
+        average = Functions.average(array)
+        cont = 0
+        for i in array:
+            cont += (i - average)**2
+        return cont / len(array)
+
+
+    @staticmethod
+    def numbers_in_array_7(array):
+        """
+            25 - Calculates the number on numbers that are multiples of 7 in a array
+            :param array: the array to be examined
+            :return: the number of numbers
+        """
+        cont = 0
+        for i in array:
+            if i % 7 == 0:
+                cont += 1
+
+    @staticmethod
+    def transpose_matrix(matrix):
+        """
+            30 - Method that allows me to transpose a matrix
+            without using any library
+            :param matrix: the matrix to be transposed
+            :return: the matrix transposed
+        """
+        for i in range(len(matrix) - 1):
+            for j in range(1, len(matrix) - i):
+                a = matrix[i][i + j]
+                matrix[i][j + i], matrix[i + j][i] = matrix[i + j][i], a
+        return matrix
+
+
 
