@@ -135,7 +135,7 @@ last = int(input("Escriba el número de las últimas n letras que desea ver: "))
 print(last_n_numbers(last, word))
 
 ##############
-def sumation(num1, num2, num3):
+def summation(num1, num2, num3):
     """
         11 - Function that calculates the sum of three numbers
         :param num1: the first number
@@ -148,12 +148,101 @@ def sumation(num1, num2, num3):
     return num1 + num2 + num3
 
 #########
+def summation_2(num1, num2):
+    """
+        12 - Function that calculates the sum of two numbers
+        :param num1: First number to be summated
+        :param num2: Second number to be summated
+        :return: The summation of te two numbers
+    """
+    a = num1 + num2
+
+    if a in range(15, 21):
+        return 20
+    return a
+
+###########
+def operation(num1, num2):
+    """
+        13 - Function that returns a certain operation between
+        two numbers
+        :param num1: The first number to be operated
+        :param num2: the second number to be operated
+        :return: the operation between the numbers
+    """
+    return (num1 + num2)**2
+
+##########
+def euclidean_distance(x1, y1, x2, y2):
+    """
+        14 - This function calculates the euclidean function
+        for two points
+        :param x1: x coordinate of the first point
+        :param y1: y coordinate of the first point
+        :param x2: x coordinate of the second point
+        :param y2: y coordinate of the second point
+        :return: The distance of between the two points
+    """
+    x = (x2 - x1)**2
+    y = (y2 - y1)**2
+    return (x + y)**(1/2)
+
+#########
+def seconds_to_date(number):
+    """
+        15 - Function that allows me to convert a number of seconds to a date
+        :param number: the seconds to convert
+        :return: the seconds converted
+    """
+    secs = int(number % 60)
+    number = (number-secs) / 60
+    mins = int(number % 60)
+    number = (number - mins) / 60
+    hours = int(number % 24)
+    days = int((number - hours) / 24)
+    return days, hours, mins, secs
+
+num = int(input("Ingrese un número de segundos"))
+print(seconds_to_date(num))
+
+#########
 def prime_numbers(num):
     """
         16 - Looks for the n prime numbers
         :param num: The number of primes we want to show
         :return: an array of primes
+        Pendiente
     """
+###########
+def summation_3(n):
+    """
+        17 - Function that allows me to sum all the number from 1 to n
+        :param n: the last number to be summated
+        :return: the sum of all those numbers
+    """
+    cont = 1
+    for i in (n+1):
+        cont += i
+    return cont
+###############
+def maximum(array):
+    """
+            18 - Finds the maximum in an array
+            :param array: the array to be examined
+            :return: the maximum in the array
+        """
+    a = array[0]
+    for i in array:
+        if i > a:
+            a = i
+    return a
+
+c = []
+b = input("Ingrese un número, cuando no quiera meter más números, escriba 'parar': ")
+while b != "parar":
+    b = float(b)
+    c.append(b)
+    b = input()
 
 ##############
 def minimum(array):
@@ -187,7 +276,7 @@ def average(array):
     cont = 0
     for i in array:
         cont += i
-    return cont / len(array)
+    return float(cont / len(array))
 
 def desv_est(array):
     """
@@ -208,6 +297,25 @@ while b != "parar":
     c.append(b)
     b = input()
 
+############
+def sort(array):
+    """
+        24 - Function that allows me to order an array
+        from the maximum to the minimum using the Insert Sort Algorithm
+        :param array: the array to be ordered
+        :return: the array sorted
+    """
+    n = len(array)
+    contador = 0
+    for i in range(1, n):
+        nuevo = array[i]
+        for j in reversed(range(1, i + 1)):
+            contador += 1
+            otro = array[j - 1]
+            if otro < nuevo:
+                array[j] = otro
+                array[j - 1] = nuevo
+
 #############
 def numbers_in_array_7(array):
     """
@@ -226,6 +334,50 @@ while b != "parar":
     b = float(b)
     c.append(b)
     b = input()
+
+###########
+def sum_primary_diagonal(matrix):
+    """
+        27 - Calculates the elements of the primary diagonal
+        :param matrix: the matrix that's going to be examined
+        :return: the sum of the elements of the primary diagonal
+    """
+    cont = 0
+    for i in range(len(matrix)):
+        cont += matrix[i][i]
+    return cont
+
+############
+def sum_secondary_diagonal(matrix):
+    """
+        28 - Calculates the elements of the secondary diagonal
+        :param matrix: the matrix that's going to be examined
+        :return: the sum of the elements of the secondary diagonal
+    """
+    cont = 0
+    i = 0
+    j = len(matrix) - 1
+    while i < len(matrix) and j >= 0:
+        cont += matrix[i][j]
+        i += 1
+        j -= 1
+    return cont
+
+###########
+def sum_matrix(mat1, mat2):
+    """
+        29 - Function that allows me to sum two matrixes of NxN
+        :param mat1: the first matrix to be summated
+        :param mat2: the second matrix to be summated
+        :return: the resulting matrix of the sum
+    """
+    result_mat = []
+    for i in range(len(mat1)):
+        row = []
+        for j in range(len(mat1[i])):
+            row.append(mat1[i][j] + mat2[i][j])
+        result_mat.append(row)
+    return result_mat
 
 ###########
 def transpose_matrix(matrix):
