@@ -336,6 +336,23 @@ while b != "parar":
     b = input()
 
 ###########
+def assign_numbers(rows, columns, n):
+    """
+        26 - Assigns a number to a matrix of dimentions rown*columns
+        :param rows: the rows of the matrix
+        :param columns: the columns of the matrix
+        :param n: the number to be assigned
+        :return: the resulting matrix
+    """
+    a = []
+    for i in range(rows):
+        row = []
+        for j in range(columns):
+            row.append(n)
+        a.append(row)
+    return a
+
+###########
 def sum_primary_diagonal(matrix):
     """
         27 - Calculates the elements of the primary diagonal
