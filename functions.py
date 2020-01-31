@@ -224,7 +224,6 @@ num = int(input("Ingrese un número de segundos"))
 print(seconds_to_date(num))
 
 #########
-import math
 def prime_numbers(num):
     """
         16 - Looks for the n prime numbers
@@ -244,7 +243,7 @@ def prime_numbers(num):
                 array.append(i)
     return array
 
-print(prime_numbers(20))
+print(prime_numbers(1000))
 
 ###########
 def summation_3(n):
@@ -261,10 +260,10 @@ def summation_3(n):
 ###############
 def maximum(array):
     """
-            18 - Finds the maximum in an array
-            :param array: the array to be examined
-            :return: the maximum in the array
-        """
+        18 - Finds the maximum in an array
+        :param array: the array to be examined
+        :return: the maximum in the array
+    """
     a = array[0]
     for i in array:
         if i > a:
@@ -368,6 +367,11 @@ def median(array):
 
 ###########
 def mode(array):
+    """
+        23 - Function that allows me to calculate the mode of an array of numbers
+    :param array: the array to be examined
+    :return:
+    """
     result = array.count(array[0])
     for i in array:
         if array.count(i) > result:
