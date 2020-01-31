@@ -318,6 +318,57 @@ while b != "parar":
     b = input()
 
 ############
+def bubbleSort(array):
+    """
+        Orders an array ascendently
+        :param array: The array to be ordered
+        :return: the order array
+    """
+    n = len(array)
+    contador = 0
+    for i in reversed(range(1, n + 1)):
+        for j in range(0, i - 1):
+            contador += 1
+            c1 = array[j]
+            c2 = array[j + 1]
+            if c1 > c2:
+                array[j] = c2
+                array[j + 1] = c1
+    return array
+
+def median(array):
+    """
+        22 - Finds the median of an array
+        :param array: the array to be examined
+        :return: the median of the array
+    """
+    ordered_array = bubbleSort(array)
+    if len(ordered_array) % 2 != 0:
+        index = int((len(ordered_array)-1)/2)
+        return ordered_array[index]
+    else:
+        index1 = int((len(ordered_array)-1)/2)
+        index2 = int((len(ordered_array)+1)/2)
+        result = (ordered_array[index1] + ordered_array[index2]) / 2
+        return result
+
+###########
+def mode(array):
+    result = array.count(array[0])
+    for i in array:
+        if array.count(i) > result:
+            result = i
+    return int(result)
+
+c = []
+b = input("Ingrese un número, cuando no quiera meter más números, escriba 'parar': ")
+while b != "parar":
+    b = float(b)
+    c.append(b)
+    b = input()
+print(mode(c))
+
+############
 def sort(array):
     """
         24 - Function that allows me to order an array
