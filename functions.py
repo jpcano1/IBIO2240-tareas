@@ -224,13 +224,27 @@ num = int(input("Ingrese un número de segundos"))
 print(seconds_to_date(num))
 
 #########
+import math
 def prime_numbers(num):
     """
         16 - Looks for the n prime numbers
-        :param num: The number of primes we want to show
+        :param num: The limit of primes we want to show
         :return: an array of primes
-        Pendiente
     """
+    array = []
+    if num >= 2:
+        array.append(2)
+
+        for i in range(2, num+1):
+            root = int(i**(1/2))
+            j = 0
+            while array[j] < root and (i % array[j] != 0 or array[j] == 1):
+                j += 1
+            if i % array[j] != 0 or array[j] == 1:
+                array.append(i)
+    return array
+
+print(prime_numbers(20))
 
 ###########
 def summation_3(n):
