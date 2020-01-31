@@ -1,17 +1,6 @@
 from datetime import datetime as dt
 
 ##############
-def absolute(x):
-    """
-        Calculates the absolute value of a variable
-        :param x: the variable to be calculated
-        :return: The abs value
-    """
-    if x < 0:
-        return -x
-    return x
-
-#################
 import math
 
 def circle_radius(radius) -> float:
@@ -42,9 +31,38 @@ def terms(num):
     """
     return num + num**2 + num**3
 
-# Cuarto punto pendiente
-def dates_difference(date_1, date_2=dt.now()):
-    pass
+##############
+def absolute(x):
+    """
+        Calculates the absolute value of a variable
+        :param x: the variable to be calculated
+        :return: The abs value
+    """
+    if x < 0:
+        return -x
+    return x
+
+def to_int(array):
+    cadena = []
+    for i in array:
+        cadena.append(int(i))
+    return cadena
+
+def dates_difference(date_1, date_2):
+    """
+        4 - Calculates the difference (in days) between two dates
+        :param date_1: the first date
+        :param date_2: the second date
+        :return: the difference between the dates
+    """
+    date_1 = to_int(date_1.split('-'))
+    date_2 = to_int(date_2.split('-'))
+    days_1 = (date_1[2]*12 + date_1[1])*30 + date_1[0]
+    days_2 = (date_2[2]*12 + date_2[1])*30 + date_2[0]
+    diff = days_2 - days_1
+    return absolute(diff)
+
+print(dates_difference(date_1="1-1-2020", date_2="30-1-2019"))
 
 ###########
 def volume(radius):
@@ -213,6 +231,7 @@ def prime_numbers(num):
         :return: an array of primes
         Pendiente
     """
+
 ###########
 def summation_3(n):
     """
@@ -224,6 +243,7 @@ def summation_3(n):
     for i in (n+1):
         cont += i
     return cont
+
 ###############
 def maximum(array):
     """
