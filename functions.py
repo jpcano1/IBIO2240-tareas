@@ -306,9 +306,7 @@ def average(array):
         :param array: the array to be examined
         :return: the average in the array
     """
-    cont = 0
-    for i in array:
-        cont += i
+    cont = sum(num for i in array)
     return float(cont / len(array))
 
 def desv_est(array):
