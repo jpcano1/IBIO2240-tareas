@@ -404,7 +404,7 @@ def sort(array):
             if otro < nuevo:
                 array[j] = otro
                 array[j - 1] = nuevo
-
+    return array
 #############
 def numbers_in_array_7(array):
     """
