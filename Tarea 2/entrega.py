@@ -187,10 +187,12 @@ if number > 0:
 elif number == 0:
     carac = "0"
 
+'''Buscamos el exponente del numero en decimal'''
 number = 127 + len(carac) - 1
 
 cadena = ""
 
+'''Traducimos el exponente a binario'''
 while number != 1:
     residuo = int(number % 2)
     b = cadena
@@ -204,7 +206,7 @@ cadena += b
 a.append(cadena)
 
 array = []
-
+'''Traducimos la mantisa del numero a binario'''
 while mantissa != 1 and mantissa != 0:
     mantissa = mantissa * 2
     cadena = str(mantissa).split(".")[0]
@@ -212,6 +214,7 @@ while mantissa != 1 and mantissa != 0:
     if cadena == '1' and mantissa != 1:
         mantissa -= 1
 
+'''Normalizamos la mantisa'''
 mantissa = "".join(array)
 carac = carac[1:]
 carac += mantissa
@@ -219,6 +222,7 @@ carac += mantissa
 if len(carac) > 23:
     print("Not enough bits for the mantissa bro")
 else:
+    '''Agregamos ceros hasta llegar a los 23 bits'''
     while len(carac) < 23:
         carac += "0"
 
@@ -240,6 +244,7 @@ mantissa = abs(number - int(number))
 number = abs(int(number))
 carac = ""
 
+'''Traducimos la caracteristica del numero a binario'''
 if number > 0:
     while number != 1:
         residuo = int(number % 2)
@@ -253,10 +258,12 @@ if number > 0:
 elif number == 0:
     carac = "0"
 
+'''Buscamos el exponente del numero en decimal'''
 number = 1023 + len(carac) - 1
 
 cadena = ""
 
+'''Traducimos el exponente a binario'''
 while number != 1:
     residuo = int(number % 2)
     b = cadena
@@ -271,6 +278,7 @@ a.append(cadena)
 
 array = []
 
+'''Traducimos la mantisa del numero a binario'''
 while mantissa != 1 and mantissa != 0:
     mantissa = mantissa * 2
     cadena = str(mantissa).split(".")[0]
@@ -278,6 +286,7 @@ while mantissa != 1 and mantissa != 0:
     if cadena == '1' and mantissa != 1:
         mantissa -= 1
 
+'''Normalizamos la mantisa'''
 mantissa = "".join(array)
 carac = carac[1:]
 carac += mantissa
@@ -288,6 +297,6 @@ else:
     while len(carac) < 52:
         carac += "0"
 
+    '''Agregamos ceros hasta llegar a los 23 bits'''
     a.append(carac)
-    print(a)
-    print("".join(a) == "1100000010001111111010111010100000100100000010110111100000000011")
+    print("".join(a))
