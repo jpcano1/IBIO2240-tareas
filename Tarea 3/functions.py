@@ -142,3 +142,42 @@ def sum_array(matrix1, matrix2):
     matrix1 = np.array(matrix1)
     matrix2 = np.array(matrix2)
     return matrix1 + matrix2
+
+##
+import numpy as np
+import matplotlib.pyplot as plt
+
+def sinusoidal_functions():
+    x = np.linspace(0, 10, num=400)
+    for i in range(10, 11):
+        plt.plot(x, np.sin(2*np.pi*i*x))
+
+    plt.xlabel("Tiempo")
+    plt.ylabel("Funcion sinusoidal")
+    plt.show()
+
+sinusoidal_functions()
+
+##
+import numpy as np
+import matplotlib.pyplot as plt
+
+def histogram_uniform():
+    array = np.random.uniform(low=0, high=50, size=1000)
+    plt.hist(array, bins=[0, 10, 20, 30, 40, 50])
+    plt.title("histogram")
+    plt.show()
+
+histogram_uniform()
+
+##
+import numpy as np
+import matplotlib.pyplot as plt
+
+def histogram_normal():
+    array = np.random.normal(loc=30, scale=20, size=1000)
+    plt.hist(array, bins=[0, 10, 20, 30, 40, 50])
+    plt.title("histogram")
+    plt.show()
+
+histogram_normal()
