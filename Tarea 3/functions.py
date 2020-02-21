@@ -162,22 +162,32 @@ sinusoidal_functions()
 import numpy as np
 import matplotlib.pyplot as plt
 
-def histogram_uniform():
-    array = np.random.uniform(low=0, high=50, size=1000)
-    plt.hist(array, bins=[0, 10, 20, 30, 40, 50])
-    plt.title("histogram")
+def histogram_uniform(partition):
+    array = np.random.rand(10000)
+    a = list()
+    plt.hist(array, bins=partition)
+    plt.title(f"histogram for {partition} partitions")
     plt.show()
 
-histogram_uniform()
+histogram_uniform(10)
+histogram_uniform(20)
+histogram_uniform(30)
+histogram_uniform(40)
+histogram_uniform(50)
 
 ##
 import numpy as np
 import matplotlib.pyplot as plt
 
-def histogram_normal():
-    array = np.random.normal(loc=30, scale=20, size=1000)
-    plt.hist(array, bins=[0, 10, 20, 30, 40, 50])
-    plt.title("histogram")
+def histogram_normal(partition):
+    array = np.random.normal(size=10000)
+    plt.hist(array, bins=partition)
+    plt.title(f"histogram for {partition} partitions")
     plt.show()
+    return
 
-histogram_normal()
+histogram_normal(10)
+histogram_normal(20)
+histogram_normal(30)
+histogram_normal(40)
+histogram_normal(50)
