@@ -117,6 +117,16 @@ def sum_matrix(mat1, mat2):
             row.append(mat1[i][j] + mat2[i][j])
         result_mat.append(row)
     return result_mat
+##
+# 10
+def prod_matrix(mat1, mat2):
+    result_mat = []
+    for i in range(len(mat1)):
+        row = []
+        for j in range(len(mat1[i])):
+            row.append(mat1[i][j] * mat2[i][j])
+        result_mat.append(row)
+    return result_mat
 
 ##
 # 11
@@ -143,6 +153,9 @@ def sum_array(matrix1, matrix2):
     matrix2 = np.array(matrix2)
     return matrix1 + matrix2
 
+def multiply_array(matrix1, matrix2):
+    return np.array(matrix1) * np.array(matrix2)
+
 ##
 import numpy as np
 import matplotlib.pyplot as plt
@@ -151,7 +164,6 @@ def sinusoidal_functions():
     x = np.linspace(0, 10, num=400)
     for i in range(10, 11):
         plt.plot(x, np.sin(2*np.pi*i*x))
-
     plt.xlabel("Tiempo")
     plt.ylabel("Funcion sinusoidal")
     plt.show()
@@ -164,7 +176,6 @@ import matplotlib.pyplot as plt
 
 def histogram_uniform(partition):
     array = np.random.rand(10000)
-    a = list()
     plt.hist(array, bins=partition)
     plt.title(f"histogram for {partition} partitions")
     plt.show()
