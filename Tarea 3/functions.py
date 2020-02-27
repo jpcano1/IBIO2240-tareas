@@ -118,7 +118,7 @@ def sum_matrix(mat1, mat2):
         result_mat.append(row)
     return result_mat
 ##
-# 10
+# Decimo
 def prod_matrix(mat1, mat2):
     result_mat = []
     for i in range(len(mat1)):
@@ -161,44 +161,44 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def sinusoidal_functions():
-    x = np.linspace(0, 10, num=400)
-    for i in range(10, 11):
-        plt.plot(x, np.sin(2*np.pi*i*x))
-    plt.xlabel("Tiempo")
-    plt.ylabel("Funcion sinusoidal")
-    plt.show()
-
-sinusoidal_functions()
-
-##
-import numpy as np
-import matplotlib.pyplot as plt
-
-def histogram_uniform(partition):
-    array = np.random.rand(10000)
-    plt.hist(array, bins=partition)
-    plt.title(f"histogram for {partition} partitions")
-    plt.show()
-
-histogram_uniform(10)
-histogram_uniform(20)
-histogram_uniform(30)
-histogram_uniform(40)
-histogram_uniform(50)
-
-##
-import numpy as np
-import matplotlib.pyplot as plt
-
-def histogram_normal(partition):
-    array = np.random.normal(size=10000)
-    plt.hist(array, bins=partition)
-    plt.title(f"histogram for {partition} partitions")
+    x = np.linspace(0, 10, num=1000)
+    fig, ax = plt.subplots(nrows=10, figsize=(10, 30))
+    fig.tight_layout(pad=2)
+    for i in range(10):
+        ax[i].plot(x, np.sin(2*np.pi*(i+1)*x))
+        ax[i].set_title(f"Función con {i+1} hz")
+        ax[i].grid(True)
     plt.show()
     return
 
-histogram_normal(10)
-histogram_normal(20)
-histogram_normal(30)
-histogram_normal(40)
-histogram_normal(50)
+sinusoidal_functions()
+##
+import numpy as np
+import matplotlib.pyplot as plt
+
+def histogram_uniform():
+    array = np.random.rand(10000)
+    fig, ax = plt.subplots(5, figsize=(5, 20))
+    fig.tight_layout(pad=2)
+    for i in range(5):
+        ax[i].hist(array, bins=(i+1)*10, color="g")
+        ax[i].set_title(f"Histogram for {(i+1)*10} partitions")
+    plt.show()
+    return
+
+histogram_uniform()
+##
+import numpy as np
+import matplotlib.pyplot as plt
+
+def histogram_normal():
+    array = np.random.normal(size=10000)
+    fig, ax = plt.subplots(5, figsize=(5, 20))
+    fig.tight_layout(pad=2)
+    for i in range(5):
+        ax[i].hist(array, bins=(i+1)*10, color="r")
+        ax[i].set_title(f"Histogram for {(i+1)*10} partitions")
+    plt.show()
+    return
+
+histogram_normal()
