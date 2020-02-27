@@ -8,6 +8,10 @@ def productory(a: list):
 ##
 # Segundo
 def factorial(x: int):
+    """
+        @param x:
+        @return:
+    """
     if x < 0:
         raise Exception("Not a positive number")
     if x == 1 or x == 0:
@@ -19,6 +23,13 @@ print(factorial(10))
 ##
 # Tercero
 def is_prime(num):
+    """
+
+    @param num:
+    @type num:
+    @return:
+    @rtype:
+    """
     prime = False
     if (num % 2 != 0
         and num % 3 != 0
@@ -61,7 +72,12 @@ def is_fibonacci(num):
     return is_fib
 ##
 # Sexto
-def mean_matrix(matrix, mode):
+def mean_matrix(matrix, mode: int):
+    """
+        @param matrix:
+        @param mode:
+        @return:
+    """
     means = list()
     if mode == 1:
         for row in matrix:
