@@ -1,6 +1,11 @@
 ##
 # Primero
-def productory(a: list):
+def productory(a):
+    """
+    Calculates the productory of an array
+    @param a: the array
+    @return: the multiplication of the elements
+    """
     result = 1
     for i in a:
         result *= i
@@ -9,8 +14,9 @@ def productory(a: list):
 # Segundo
 def factorial(x: int):
     """
-        @param x:
-        @return:
+    Calculates the factorial of an integer
+    @param x: the integer to be operated
+    @return: the factorial of the number
     """
     if x < 0:
         raise Exception("Not a positive number")
@@ -24,11 +30,9 @@ print(factorial(10))
 # Tercero
 def is_prime(num):
     """
-
-    @param num:
-    @type num:
-    @return:
-    @rtype:
+    Verifies if a number is prime
+    @param num: the number to be verified
+    @return: the verification
     """
     prime = False
     if (num % 2 != 0
@@ -43,6 +47,11 @@ def is_prime(num):
 ##
 # Cuarto
 def palindrome(number):
+    """
+    Verifies if a number is palidrome
+    @param number: the number to be verified
+    @return: the verification of the number
+    """
     number = str(number)
     pali = True
     i = 0
@@ -55,6 +64,11 @@ def palindrome(number):
 ##
 # Quinto
 def is_fibonacci(num):
+    """
+    Verifies if a number belongs to the fibonacci series
+    @param num: the number to be operated
+    @return: the verification of the number
+    """
     if num == 0:
         return True
     a = 0
@@ -74,9 +88,12 @@ def is_fibonacci(num):
 # Sexto
 def mean_matrix(matrix, mode: int):
     """
-        @param matrix:
-        @param mode:
-        @return:
+    Computes the mean of a matrix by row or by column
+    @param matrix: the matrix to be operated
+    @param mode: whith this, we know
+    if we have to calculate a row or a column
+    @return: an array with the mean per row/column
+    @type: list
     """
     means = list()
     if mode == 1:
@@ -94,6 +111,14 @@ print(mean_matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]], 1))
 ##
 # Septimo
 def max_matrix(matrix, mode):
+    """
+    Computes the max number of a matrix by row or by column
+    @param matrix: the matrix to be operated
+    @param mode: whith this, we know
+    if we have to calculate a row or a column
+    @return: an array with the max per row/column
+    @type: list
+    """
     maxes = list()
     if mode == 1:
         for row in matrix:
@@ -110,6 +135,14 @@ print(max_matrix([[1, 2, 3], [7, 9, 1], [4, 1, 4], [3, 4, 1]], 2))
 ##
 # Octavo
 def min_matrix(matrix, mode):
+    """
+    Computes the min of a matrix by row or by column
+    @param matrix: the matrix to be operated
+    @param mode: whith this, we know
+    if we have to calculate a row or a column
+    @return: an array with the min per row/column
+    @type: list
+    """
     mins = list()
     if mode == 1:
         for row in matrix:
@@ -126,6 +159,12 @@ print(min_matrix([[1, 2, 3], [7, 9, 1], [4, 1, 4], [3, 4, 1]], 1))
 ##
 # noveno
 def sum_matrix(mat1, mat2):
+    """
+    Computes the sum element by element of two matrixes
+    @param mat1: the first matrix to be summated
+    @param mat2: the second matrix to be summated
+    @return: the summation of both matrixes
+    """
     result_mat = []
     for i in range(len(mat1)):
         row = []
@@ -136,6 +175,12 @@ def sum_matrix(mat1, mat2):
 ##
 # Decimo
 def prod_matrix(mat1, mat2):
+    """
+    Computes the multiplication element by element of two matrixes
+    @param mat1: the first matrix to be multiplied
+    @param mat2: the second matrix to be multiplied
+    @return: the product of both matrixes
+    """
     result_mat = []
     for i in range(len(mat1)):
         row = []
@@ -148,28 +193,65 @@ def prod_matrix(mat1, mat2):
 # 11
 import numpy as np
 def mean_array(matrix, mode):
+    """
+    Computes the mean of a matrix by row or by column using numpy
+    @param matrix: the matrix to be computed
+    @param mode: with this we know if we have to compute
+    by row or by column
+    @return: the mean of the array
+    """
     if mode == 0:
         return np.mean(a=matrix, axis=0)
     else:
         return np.mean(a=matrix, axis=1)
+
 def max_array(matrix, mode):
+    """
+    Computes the max number of a matrix by row or by column using numpy
+    @param matrix: the matrix to be operated
+    @param mode: whith this, we know
+    if we have to calculate a row or a column
+    @return: an array with the max per row/column
+    @type: list
+    """
     if mode == 0:
         return np.max(a=matrix, axis=0)
     else:
         return np.max(a=matrix, axis=1)
 
 def min_array(matrix, mode):
+    """
+    Computes the min number of a matrix by row or by column using numpy
+    @param matrix: the matrix to be operated
+    @param mode: whith this, we know
+    if we have to calculate a row or a column
+    @return: an array with the min per row/column
+    @type: list
+    """
     if mode == 0:
         return np.min(a=matrix, axis=0)
     else:
         return np.min(a=matrix, axis=1)
 
 def sum_array(matrix1, matrix2):
+    """
+    Computes the sum element by element of two matrixesusing numpy
+    @param matrix1: the first matrix to be summated
+    @param matrix2: the second matrix to be summated
+    @return: the summation of both matrixes
+    """
     matrix1 = np.array(matrix1)
     matrix2 = np.array(matrix2)
     return matrix1 + matrix2
 
 def multiply_array(matrix1, matrix2):
+    """
+    Computes the multiplication element by element of two matrixes
+    using numpy
+    @param matrix1: the first matrix to be multiplied
+    @param matrix2: the second matrix to be multiplied
+    @return: the product of both matrixes
+    """
     return np.array(matrix1) * np.array(matrix2)
 
 ##
@@ -177,6 +259,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def sinusoidal_functions():
+    """
+    Calulates the sin function with numpy changing its frequency
+    then, it graphs it using subplots
+    @return: None
+    """
     x = np.linspace(0, 10, num=1000)
     fig, ax = plt.subplots(nrows=10, figsize=(10, 30))
     fig.tight_layout(pad=2)
@@ -193,6 +280,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def histogram_uniform():
+    """
+    Creates an array with random values on an uniform distribution
+    and graphs them to se their behavior
+    @return: None
+    """
     array = np.random.rand(10000)
     fig, ax = plt.subplots(5, figsize=(5, 20))
     fig.tight_layout(pad=2)
@@ -208,6 +300,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def histogram_normal():
+    """
+    Creates an array with random values on a normal distribution
+    and graphs them to se their behavior
+    @return: None
+    """
     array = np.random.normal(size=10000)
     fig, ax = plt.subplots(5, figsize=(5, 20))
     fig.tight_layout(pad=2)
