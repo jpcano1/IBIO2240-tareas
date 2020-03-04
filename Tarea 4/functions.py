@@ -1,21 +1,21 @@
 ##
 # Primero
-def _is_fib_aux(num, fib1, fib2):
+def _is_fib_aux(x, fib1, fib2):
     """
     Auxiliar recursive function for fibonacci's verification
-    @param num: the number to be verified
+    @param x: the number to be verified
     @param fib1: the fibonacci number
     @param fib2: the fibonacci number
     @return: a boolean with the verification of the number
     @rtype: bool
     """
     c = fib1 + fib2
-    if num == fib1 or num == fib2 or num == c:
+    if x == fib1 or x == fib2 or x == c:
         return True
-    elif c > num:
+    elif c > x:
         return False
     else:
-        return _is_fib_aux(num, fib2, c)
+        return _is_fib_aux(x, fib2, c)
 
 def is_fib(num):
     """
@@ -27,38 +27,77 @@ def is_fib(num):
     return _is_fib_aux(num, 0, 1)
 ##
 # Segundo
+def is_square_aux(x, square):
+    """
+    Auxiliar recursive function for quadratic's verification
+    @param x: the number to be verified
+    @param square: the quadratic number
+    @return: a boolean with the verification of the number
+    @rtype: bool
+    """
+    if square**2 == x:
+        return True
+    elif square**2 > x:
+        return False
+    else:
+        return is_square_aux(x, square + 1)
 
+def is_square(x):
+    """
+    Validates a number belongs to the quadratic series
+    @param x: the number to be verified
+    @return: the verification of the number
+    @rtype: bool
+    """
+    return is_square_aux(x, 0)
 ##
 # Tercero
 import math
 def taylor_expo(x, n):
+    """
+    Computes the taylor series for the exponential function
+    @param x: The number whose exponential it's gonna be computed
+    @param n: The number of iterations
+    @return: the aproximation for the exponential of 'x'
+    """
     if n == 0:
         return 1
     else:
         a = x**n/(math.factorial(n))
         b = taylor_expo(x, n-1)
         return a + b
-
-taylor_expo(7, 100)
 ##
 # Cuarto
 import numpy as np
+import math
 
 def taylor_sin(x, n):
+    """
+    Computes the taylor series for the sine function
+    @param x: The number whose sine it's gonna be computed
+    @param n: The number of iterations
+    @return: the aproximation for the sine of 'x'
+    """
     if n == 0:
         return x
     else:
         a = ((-1)**n)/(math.factorial(2*n+1))
-        b = x**(2*n+1)
+        b = int(x**(2*n+1))
         c = a*b
         return c + taylor_sin(x, n-1)
-taylor_sin(np.pi/2, 100)
+taylor_sin(np.pi/2, 700)
 ##
 # Quinto
 import math
 import numpy as np
 
 def taylor_cos(x, n):
+    """
+    Computes the taylor series for the cosine function
+    @param x: The number whose cosine it's gonna be computed
+    @param n: The number of iterations
+    @return: the aproximation for the cosine of 'x'
+    """
     if n == 0:
         return 1
     else:
@@ -66,15 +105,58 @@ def taylor_cos(x, n):
         b = x**(2*n)
         c = a*b
         return c + taylor_cos(x, n-1)
-
-taylor_cos(np.pi, 50)
 ##
 # Sexto
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+
+def plot_exp(x):
+    """
+    Plots the exponential of a number, its relative and absolute error
+    @param x: the number to be plotted
+    @return: None
+    """
+    a_range = np.arange(10, 801, 10)
+    results = []
+    absolute = []
+    relative = []
+
+    for i in a_range:
+        calculated = taylor_expo(x, i)
+        e = np.abs(np.exp(x) - calculated)
+        r = e/np.exp(x)
+        results.append([x, calculated])
+        absolute.append([x, e])
+        relative.append([x, r])
+
+    for i in range(len(results)):
+        plt.plot(results[i][0], results[i][1], ".", color='g')
+        plt.plot(absolute[i][0], absolute[i][1], '*', color='r')
+        plt.plot(relative[i][0], relative[i][1], 'v', color="b")
+
+    plt.grid(True)
+    plt.show()
+    return
+
+plot_exp(1)
+
+##
+# Septimo
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_sin(x)
+
+
+##
+# Octavo
 
 ##
 # Noveno
 import numpy as np
 import struct as st
+
 var1 = np.random.randint(low=-10, high=10, size=1000)
 file = open("FileBinInt16.bin", "wb")
 var2 = st.pack("h"*int(len(var1)), *var1)
@@ -115,32 +197,6 @@ plt.show()
 import struct as st
 import numpy as np
 
-def _is_fib_aux(num, fib1, fib2):
-    """
-    Auxiliar recursive function for fibonacci's verification
-    @param num: the number to be verified
-    @param fib1: the fibonacci number
-    @param fib2: the fibonacci number
-    @return: a boolean with the verification of the number
-    @rtype: bool
-    """
-    c = fib1 + fib2
-    if num == fib1 or num == fib2 or num == c:
-        return True
-    elif c > num:
-        return False
-    else:
-        return _is_fib_aux(num, fib2, c)
-
-def is_fib(num):
-    """
-    Validates a number belongs to the fibonacci series
-    @param num: the number to be verified
-    @return: the verification of the number
-    @rtype: bool
-    """
-    return _is_fib_aux(num, 0, 1)
-
 def read_data():
     file = open("File-214.bin", "rb")
     var1 = file.read()
@@ -154,8 +210,15 @@ def write_data(data):
     var2 = file.write(var1)
     file.close()
     return
+
 i = 0
 for num in read_data():
     if is_fib(num):
+        i += 1
+write_data(i)
+
+i = 0
+for num in read_data():
+    if is_square(num):
         i += 1
 write_data(i)
