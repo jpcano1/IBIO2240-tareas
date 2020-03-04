@@ -85,7 +85,7 @@ def taylor_sin(x, n):
         b = int(x**(2*n+1))
         c = a*b
         return c + taylor_sin(x, n-1)
-taylor_sin(np.pi/2, 700)
+
 ##
 # Quinto
 import math
@@ -138,20 +138,71 @@ def plot_exp(x):
     plt.grid(True)
     plt.show()
     return
-
-plot_exp(1)
-
 ##
 # Septimo
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot_sin(x)
+def plot_sin(x):
+    """
+    Plots the sine of a number, its relative and absolute error
+    @param x: the number to be plotted
+    @return: None
+    """
+    a_range = np.arange(10, 501, 10)
+    results = []
+    absolute = []
+    relative = []
 
+    for i in a_range:
+        calculated = taylor_sin(x, i)
+        e = np.abs(np.sin(x) - calculated)
+        r = e/np.sin(x) if e >= 1e-10 else 0
+        results.append([x, calculated])
+        absolute.append([x, e])
+        relative.append([x, r])
+
+    for i in range(len(results)):
+        plt.plot(results[i][0], results[i][1], ".", color="g")
+        plt.plot(absolute[i][0], absolute[i][1], "*", color="r")
+        plt.plot(relative[i][0], relative[i][1], "v", color="b")
+
+    plt.grid(True)
+    plt.show()
+    return
 
 ##
 # Octavo
+import numpy as np
+import matplotlib.pyplot as plt
 
+def plot_cosin(x):
+    """
+    Plots the cosine of a number, its relative and absolute error
+    @param x: the number to be plotted
+    @return: None
+    """
+    a_range = np.arange(10, 501, 10)
+    results = []
+    absolute = []
+    relative = []
+
+    for i in a_range:
+        calculated = taylor_cos(x, i)
+        e = np.abs(np.cos(x) - calculated)
+        r = e/np.sin(x) if e >= 1e-10 else 0
+        results.append([x, calculated])
+        absolute.append([x, e])
+        relative.append([x, r])
+
+    for i in range(len(results)):
+        plt.plot(results[i][0], results[i][1], ".", color="g")
+        plt.plot(absolute[i][0], absolute[i][1], "*", color="r")
+        plt.plot(relative[i][0], relative[i][1], "v", color="b")
+
+    plt.grid(True)
+    plt.show()
+    return
 ##
 # Noveno
 import numpy as np
@@ -211,14 +262,14 @@ def write_data(data):
     file.close()
     return
 
-i = 0
+index = 0
 for num in read_data():
     if is_fib(num):
-        i += 1
-write_data(i)
+        index += 1
+write_data(index)
 
-i = 0
+index = 0
 for num in read_data():
     if is_square(num):
-        i += 1
-write_data(i)
+        index += 1
+write_data(index)
