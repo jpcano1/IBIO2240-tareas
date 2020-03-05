@@ -91,6 +91,20 @@ def taylor_sin(x, n):
 import math
 import numpy as np
 
+def taylor_cos(x, n):
+    """
+    Computes the taylor series for the cosine function
+    @param x: The number whose cosine it's gonna be computed
+    @param n: The number of iterations
+    @return: the aproximation for the cosine of 'x'
+    """
+    if n == 0:
+        return 1
+    else:
+        a = ((-1)**n)/(math.factorial(2*n))
+        b = x**(2*n)
+        c = a*b
+        return c + taylor_cos(x, n-1)
 
 ##
 # Sexto
@@ -162,7 +176,7 @@ def plot_sin(x):
 
     for i in ax:
         i.grid(True)
-        i.yscale("linear")
+        i.set_ybound(-2, 2)
 
     plt.show()
     return
@@ -171,28 +185,13 @@ def plot_sin(x):
 import numpy as np
 import matplotlib.pyplot as plt
 
-def taylor_cos(x, n):
-    """
-    Computes the taylor series for the cosine function
-    @param x: The number whose cosine it's gonna be computed
-    @param n: The number of iterations
-    @return: the aproximation for the cosine of 'x'
-    """
-    if n == 0:
-        return 1
-    else:
-        a = ((-1)**n)/(math.factorial(2*n))
-        b = x**(2*n)
-        c = a*b
-        return c + taylor_cos(x, n-1)
-
 def plot_cosin(x):
     """
     Plots the cosine of a number, its relative and absolute error
     @param x: the number to be plotted
     @return: None
     """
-    a_range = np.arange(10, 501, 10)
+    a_range = np.arange(10, 701, 10)
     results = []
     absolute = []
     relative = []
@@ -214,7 +213,7 @@ def plot_cosin(x):
 
     for i in ax:
         i.grid(True)
-
+        i.set_ybound(-2, 2)
     plt.show()
     return
 
