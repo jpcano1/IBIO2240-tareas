@@ -12,20 +12,6 @@ def productory(a):
     return result
 ##
 # Segundo
-def factorial(x: int):
-    """
-    Calculates the factorial of an integer
-    @param x: the integer to be operated
-    @return: the factorial of the number
-    """
-    if x < 0:
-        raise Exception("Not a positive number")
-    if x == 1 or x == 0:
-        return 1
-    else:
-        return x*factorial(x-1)
-
-print(factorial(10))
 ##
 # Tercero
 def is_prime(num):
