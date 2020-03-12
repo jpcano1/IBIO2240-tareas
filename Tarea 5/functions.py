@@ -141,22 +141,9 @@ def circle_graph(a, b, c):
     # We find the center i, j
     i, j = -a/2, -b/2
 
-    # Generate the samples
-    x = np.linspace(i - r, i + r, 50)
-    y = np.linspace(j - r, j + r, 50)
-
-    # Generates coordinates
-    X, Y = np.meshgrid(x, y)
-
-    # Defines the function
-    F = (X - i) ** 2 + (Y - j) ** 2 - r**2
 
     # Creates the plot
     fig, ax = plt.subplots(figsize=(8, 8))
-
-    # Graphs the plot
-    ax.contour(X, Y, F, [0], colors=["r"])
-    ax.set_aspect(1)
 
     # Generates angles for polar coordinates
     theta = np.linspace(0, 2*np.pi, 50)
@@ -165,6 +152,8 @@ def circle_graph(a, b, c):
     x = r * np.cos(theta) + i
     y = r * np.sin(theta) + j
 
+    # Plot the circle
+    ax.plot(x, y, color="r")
     # Plots the points
     ax.plot(x, y, 'o', color="b")
 
@@ -172,8 +161,6 @@ def circle_graph(a, b, c):
     plt.title('Circle graph')
 
     # The graph's limits
-    plt.xlim(-105, 140)
-    plt.ylim(-10, 230)
 
     plt.grid(linestyle='--')
     plt.axvline(x=0, color='grey')
@@ -212,7 +199,7 @@ def polinom_graph(a, b, c, d, e):
     # Plots the curve
     plt.plot(x, f, '-', color="r")
     # Plots the points
-    plt.plot(x, f, 'o', color="b")
+    plt.plot(x, f, '.', color="b")
     plt.grid(linestyle="--")
 
     plt.axvline(x=0, color='grey')
@@ -273,7 +260,9 @@ if __name__ == '__main__':
             print("Aquí esta la respuesta del paquete linalg: ")
             print(np.linalg.inv(mat))
         elif option == 3:
-            print("Aqui va la solucion")
+            print("1. En caso de que hayan más variables que ecuaciones en un sistema lineal, \nhay soluciones infinitas")
+            print("2. En caso de que las ecuaciones en su forma de matricial, no tenga inversa, el sistema no tiene solución. \nSe habla de un sistema singular.")
+            print("3. Si hay igual numero o mayor numero de ecuaciones que de variables, o \nsi el sistema de ecuaciones en su forma matricial es invertible. \nEl sistema tiene unica solucion")
         elif option == 4:
             a, b, c = circle_solution()
             input("Presione intro para continuar...")
