@@ -205,3 +205,34 @@ def float_64(number):
 
     a.append(carac)
     return "".join(a)
+
+def print_menu():
+    print("----------Laboratorio 5----------")
+    print("Escoja la opcion: ")
+    print("1. Traducir a binario")
+    print("2. IEEE Coma flotante 32 bits")
+    print("3. IEEE Coma flotante 64 bits")
+    print("4. Salir")
+
+if __name__ == '__main__':
+    finished = False
+
+    while not finished:
+        print_menu()
+
+        option = int(input())
+        if option == 1:
+            a = int(input("Ingrese un número a traducir: "))
+            print(f"Este es el numero traducido: \n{to_binary(a)}")
+
+        elif option == 2:
+            a = float(input("Ingrese un número a traducir: "))
+            print(f"Este es el numero traducido: \n{float_32(a)}")
+
+        elif option == 3:
+            a = float(input("Ingrese un número a traducir: "))
+            print(f"Este es el numero traducido: \n{float_64(a)}")
+        elif option == 4:
+            finished = True
+        else:
+            print("Opcion no correcta")
