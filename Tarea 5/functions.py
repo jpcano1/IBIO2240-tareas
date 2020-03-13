@@ -254,7 +254,8 @@ if __name__ == '__main__':
         elif option == 3:
             print("1. En caso de que hayan más variables que ecuaciones en un sistema lineal, \nhay soluciones infinitas")
             print("2. En caso de que las ecuaciones en su forma de matricial, no tenga inversa, el sistema no tiene solución. \nSe habla de un sistema singular.")
-            print("3. Si hay igual numero o mayor numero de ecuaciones que de variables, o \nsi el sistema de ecuaciones en su forma matricial es invertible. \nEl sistema tiene unica solucion")
+            print("3. Si hay igual numero o mayor numero de ecuaciones que de variables, o \n"
+                  "si el sistema de ecuaciones en su forma matricial es invertible. \nEl sistema tiene unica solucion")
         elif option == 4:
             a, b, c = circle_solution()
             input("Presione intro para continuar...")
