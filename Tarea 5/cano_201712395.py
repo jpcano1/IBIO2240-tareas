@@ -140,19 +140,27 @@ def circle_graph(a, b, c):
     r = math.sqrt((a / 2)**2 + (b / 2)**2 - c)
     # We find the center i, j
     i, j = -a/2, -b/2
+
+
     # Creates the plot
     fig, ax = plt.subplots(figsize=(8, 8))
+
     # Generates angles for polar coordinates
     theta = np.linspace(0, 2*np.pi, 50)
+
     # Generates polar coordinates based on parameter functions
     x = r * np.cos(theta) + i
     y = r * np.sin(theta) + j
+
     # Plot the circle
     ax.plot(x, y, color="r")
     # Plots the points
     ax.plot(x, y, 'o', color="b")
+
     # Sets the title
     plt.title('Circle graph')
+
+    # The graph's limits
 
     plt.grid(linestyle='--')
     plt.axvline(x=0, color='grey')
