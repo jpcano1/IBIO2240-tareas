@@ -88,10 +88,8 @@ def read_excel_files():
     file = pd.read_excel("clean_data.xlsx")
     data_men = np.array(file.iloc[:, :2].dropna())
     data_women = np.array(file.iloc[:, ::2].dropna())
-    return (data_men[:, 0],
-            data_men[:, 1],
-            data_women[:, 0],
-            data_women[:, 1])
+    return [(data_men[:, 0], data_men[:, 1]),
+            (data_women[:, 0], data_women[:, 1])]
 
 def read_binary_files():
     file = open("Lab-Reg-X.bin", "rb")
@@ -105,25 +103,30 @@ def read_binary_files():
     y = np.array(y)
     return x, y
 
-def plot_data_competition(x1, y1, x2, y2):
-    b_1, b_0 = estimate_b0_b1(x1, y1)
-    xf = np.arange(x1[0], 2160, 0.1)
-    y_prediction = b_1 * xf + b_0
-    plt.plot(x1, y1, "or")
-    plt.plot(xf, y_prediction, "-r", label="Men")
+def plot_data_competition(data):
+    labels = ["Men", "Women"]
+    colors = ["b", "r"]
+    fig, ax = plt.subplots(nrows=2)
+    xf = np.arange(1900, 2160, 0.1)
 
-    b_1, b_0 = estimate_b0_b1(x2, y2)
-    y_prediction = b_1 * xf + b_0
-    plt.plot(x2, y2, "ob")
-    plt.plot(xf, y_prediction, "-b", label="Women")
-    plt.legend(loc='upper right')
+    for i in range(2):
+        x, y = data[i]
+        ax[0].scatter(x, y, marker="o", color=colors[i])
+        b_1, b_0 = estimate_b0_b1(x, y)
+        y_prediction = b_1 * xf + b_0
+        ax[0].plot(xf, y_prediction, f"-{colors[i]}", label=labels[i])
+
+    ax[0].legend(loc='upper right')
+
     plt.show()
 
-def plot_regression(x, y, x_lim=21, y_lim=150, x_title="X, variable independiente", y_title="Y, variable dependiente"):
+def plot_regression(x, y, x_lim1=0, x_lim2=22,
+                    x_title="X, variable independiente",
+                    y_title="Y, variable dependiente"):
     fig, ax = plt.subplots(nrows=2)
     fig.tight_layout(pad=3)
 
-    xf = np.arange(x[0], x[-1], 0.1)
+    xf = np.arange(x_lim1, x_lim2, 0.1)
     b_1, b_0 = estimate_b0_b1(x, y)
 
     y_prediction = b_1 * xf + b_0
@@ -141,8 +144,8 @@ def plot_regression(x, y, x_lim=21, y_lim=150, x_title="X, variable independient
         axis.grid(linestyle="--")
         axis.set_ylabel(y_title)
         axis.set_xlabel(x_title)
-        axis.set_xlim(0, x_lim)
-        axis.set_ylim(0, y_lim)
+        #axis.set_xlim(0, x_lim)
+        #axis.set_ylim(0, y_lim)
 
     plt.show()
 
@@ -202,8 +205,8 @@ if __name__ == "__main__":
             plot_regression(data_x, data_y)
 
         elif option == 4:
-            x1, y1, x2, y2 = read_excel_files()
-            plot_data_competition(x1, y1, x2, y2)
+            d = read_excel_files()
+            plot_data_competition(d)
 
         elif option == 5:
             finished = True
