@@ -65,33 +65,42 @@ def gauss_jordan(matrix, b):
 def estimate_b0_b1(x, y):
     """
     Estimates the values b_0 and b_0 from the linear regression
-    @param x:
-    @param y:
-    @return:
+    @param x: the values of the x axis
+    @param y: the values of the y axis
+    @return: the b_0 and the b_1 coefficients
     """
     n = np.size(x)
 
-    # Obtenemos los promedios de x y de y
+    # We obtain the mean values of x and y
     m_x, m_y = np.mean(x), np.mean(y)
 
-    # Calcular sumatoria de XY y mi sumatoria de XX
+    # We calculate the sum of XY and XX
     sumatoria_xy = np.sum((x - m_x) * (y - m_y))
     sumatoria_xx = np.sum((x - m_x) ** 2)
 
-    # Coeficientes de regresión
     b_1 = sumatoria_xy / sumatoria_xx
     b_0 = m_y - b_1 * m_x
 
     return b_1, b_0
 
 def read_excel_files():
+    """
+    Function that reads the excel data from the competition
+    @return: the x and y coordinates to the men and women
+    """
+    # Read the clean excel with pandas
     file = pd.read_excel("clean_data.xlsx")
+    # Clean al the null data
     data_men = np.array(file.iloc[:, :2].dropna())
     data_women = np.array(file.iloc[:, ::2].dropna())
     return [(data_men[:, 0], data_men[:, 1]),
             (data_women[:, 0], data_women[:, 1])]
 
 def read_binary_files():
+    """
+    Reads binary files
+    @return: The x values and y values
+    """
     file = open("Lab-Reg-X.bin", "rb")
     var1 = file.read()
     x = st.unpack("d"*int(len(var1)/8), var1)
@@ -105,6 +114,15 @@ def read_binary_files():
 
 def plot_regression(data, x_lim1=0, x_lim2=22,
                     colors=["r"], labels=["x"]):
+    """
+    Plots the regression for the incoming data in tuples
+    @param data: the data to be plot
+    @param x_lim1: the first limit of x
+    @param x_lim2: the second limit of x
+    @param colors: the colors of the graph
+    @param labels: the labels on each graph
+    """
+    # Creates subplots for the graphs
     fig, ax = plt.subplots(nrows=2)
     fig.tight_layout(pad=3)
 
