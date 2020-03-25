@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import struct as st
+import pandas as pd
 
 def gauss_jordan(matrix, b):
     """
@@ -81,9 +82,18 @@ def estimate_b0_b1(x, y):
     b_1 = sumatoria_xy / sumatoria_xx
     b_0 = m_y - b_1 * m_x
 
-    return b_0, b_1
+    return b_1, b_0
 
-def read_files():
+def read_excel_files():
+    file = pd.read_excel("clean_data.xlsx")
+    data_men = np.array(file.iloc[:, :2].dropna())
+    data_women = np.array(file.iloc[:, ::2].dropna())
+    return (data_men[:, 0],
+            data_men[:, 1],
+            data_women[:, 0],
+            data_women[:, 1])
+
+def read_binary_files():
     file = open("Lab-Reg-X.bin", "rb")
     var1 = file.read()
     x = st.unpack("d"*int(len(var1)/8), var1)
@@ -95,23 +105,45 @@ def read_files():
     y = np.array(y)
     return x, y
 
-def plot_regression():
-    x, y = read_files()
+def plot_data_competition(x1, y1, x2, y2):
+    b_1, b_0 = estimate_b0_b1(x1, y1)
+    xf = np.arange(x1[0], 2160, 0.1)
+    y_prediction = b_1 * xf + b_0
+    plt.plot(x1, y1, "or")
+    plt.plot(xf, y_prediction, "-r", label="Men")
 
-    b = estimate_b0_b1(x, y)
+    b_1, b_0 = estimate_b0_b1(x2, y2)
+    y_prediction = b_1 * xf + b_0
+    plt.plot(x2, y2, "ob")
+    plt.plot(xf, y_prediction, "-b", label="Women")
+    plt.legend(loc='upper right')
+    plt.show()
 
-    plt.plot(x, y, "or")
+def plot_regression(x, y, x_lim=21, y_lim=150, x_title="X, variable independiente", y_title="Y, variable dependiente"):
+    fig, ax = plt.subplots(nrows=2)
+    fig.tight_layout(pad=3)
 
-    y_prediction = b[0] + b[1] * x
+    xf = np.arange(x[0], x[-1], 0.1)
+    b_1, b_0 = estimate_b0_b1(x, y)
 
-    plt.plot(x, y_prediction, "-")
+    y_prediction = b_1 * xf + b_0
+    ax[0].plot(x, y, "or")
+    ax[0].plot(xf, y_prediction, "-")
+    ax[0].set_title("Regresion sin Polyfit")
 
-    # Etiquetado
-    plt.xlabel("x, Variable independiente")
-    plt.ylabel("y, Variable dependiente")
-    plt.axvline(x=0, color="grey")
-    plt.axhline(y=0, color="grey")
-    plt.grid(linestyle="--")
+    p = np.polyfit(x, y, 1)
+    y_prediction = p[0] * xf + p[1]
+    ax[1].plot(x, y, "og")
+    ax[1].plot(xf, y_prediction, "-")
+    ax[1].set_title("Regresion con Polyfit")
+
+    for axis in ax:
+        axis.grid(linestyle="--")
+        axis.set_ylabel(y_title)
+        axis.set_xlabel(x_title)
+        axis.set_xlim(0, x_lim)
+        axis.set_ylim(0, y_lim)
+
     plt.show()
 
 def generate_mat_vec():
@@ -164,10 +196,14 @@ if __name__ == "__main__":
             print("Justificacion")
 
         elif option == 3:
-            plot_regression()
+            data_x, data_y = read_binary_files()
+            print("Leyendo los datos binarios")
+            input("Presione intro para continuar...")
+            plot_regression(data_x, data_y)
 
         elif option == 4:
-            print("Punto 4")
+            x1, y1, x2, y2 = read_excel_files()
+            plot_data_competition(x1, y1, x2, y2)
 
         elif option == 5:
             finished = True
@@ -176,5 +212,3 @@ if __name__ == "__main__":
             print("Opcion no valida")
 
     print("Hasta pronto")
-
-
