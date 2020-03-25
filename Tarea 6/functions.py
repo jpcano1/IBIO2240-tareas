@@ -193,7 +193,7 @@ if __name__ == "__main__":
             print("Aquí esta la respuesta del paquete linalg: ")
             print(np.linalg.solve(a, b))
             input("Presione intro para continuar...")
-            print("Inversa de la matriz por medio de la funcio  n creada: ")
+            print("Inversa de la matriz por medio de la funcion creada: ")
             print(gauss_jordan(a, np.identity(3)))
             print("Aquí esta la respuesta del paquete linalg: ")
             print(np.linalg.inv(a))
