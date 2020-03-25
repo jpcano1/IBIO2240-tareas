@@ -101,51 +101,36 @@ def read_binary_files():
     y = st.unpack("d"*int(len(var1)/8), var1)
     x = np.array(x)
     y = np.array(y)
-    return x, y
+    return [(x, y)]
 
-def plot_data_competition(data):
-    labels = ["Men", "Women"]
-    colors = ["b", "r"]
-    fig, ax = plt.subplots(nrows=2)
-    xf = np.arange(1900, 2160, 0.1)
-
-    for i in range(2):
-        x, y = data[i]
-        ax[0].scatter(x, y, marker="o", color=colors[i])
-        b_1, b_0 = estimate_b0_b1(x, y)
-        y_prediction = b_1 * xf + b_0
-        ax[0].plot(xf, y_prediction, f"-{colors[i]}", label=labels[i])
-
-    ax[0].legend(loc='upper right')
-
-    plt.show()
-
-def plot_regression(x, y, x_lim1=0, x_lim2=22,
-                    x_title="X, variable independiente",
-                    y_title="Y, variable dependiente"):
+def plot_regression(data, x_lim1=0, x_lim2=22,
+                    colors=["r"], labels=["x"]):
     fig, ax = plt.subplots(nrows=2)
     fig.tight_layout(pad=3)
 
     xf = np.arange(x_lim1, x_lim2, 0.1)
-    b_1, b_0 = estimate_b0_b1(x, y)
 
-    y_prediction = b_1 * xf + b_0
-    ax[0].plot(x, y, "or")
-    ax[0].plot(xf, y_prediction, "-")
-    ax[0].set_title("Regresion sin Polyfit")
+    for i in range(len(data)):
+        x, y = data[i]
+        b_1, b_0 = estimate_b0_b1(x, y)
 
-    p = np.polyfit(x, y, 1)
-    y_prediction = p[0] * xf + p[1]
-    ax[1].plot(x, y, "og")
-    ax[1].plot(xf, y_prediction, "-")
-    ax[1].set_title("Regresion con Polyfit")
+        y_prediction = b_1 * xf + b_0
+        ax[0].plot(x, y, f"o{colors[i]}")
+        ax[0].plot(xf, y_prediction, f"-{colors[i]}", label=labels[i])
+        ax[0].set_title("Regresion sin Polyfit")
+
+        p = np.polyfit(x, y, 1)
+        y_prediction = p[0] * xf + p[1]
+        ax[1].plot(x, y, f"o{colors[i]}")
+        ax[1].plot(xf, y_prediction, f"-{colors[i]}", label=labels[i])
+        ax[1].set_title("Regresion con Polyfit")
 
     for axis in ax:
         axis.grid(linestyle="--")
-        axis.set_ylabel(y_title)
-        axis.set_xlabel(x_title)
-        #axis.set_xlim(0, x_lim)
-        #axis.set_ylim(0, y_lim)
+        axis.set_ylabel("Y, variable dependiente")
+        axis.set_xlabel("X, variable independiente")
+        if len(data) > 1:
+            axis.legend(loc='upper right')
 
     plt.show()
 
@@ -199,14 +184,17 @@ if __name__ == "__main__":
             print("Justificacion")
 
         elif option == 3:
-            data_x, data_y = read_binary_files()
+            d = read_binary_files()
             print("Leyendo los datos binarios")
             input("Presione intro para continuar...")
-            plot_regression(data_x, data_y)
+            plot_regression(d)
 
         elif option == 4:
             d = read_excel_files()
-            plot_data_competition(d)
+            print("Leyendo los datos del excel")
+            input("Presione intro para continuar...")
+            plot_regression(d, x_lim1=1898, x_lim2=2165,
+                            colors=["b", "g"], labels=["Men", "Woman"])
 
         elif option == 5:
             finished = True
