@@ -152,6 +152,14 @@ def plot_regression(data, x_lim1=0, x_lim2=22,
 
     plt.show()
 
+def plot_styles(colors=[]):
+    plt.style.use("dark_background")
+    for param in ['text.color', 'axes.labelcolor', 'xtick.color', 'ytick.color']:
+        plt.rcParams[param] = '0.9'  # very light grey
+    for param in ['figure.facecolor', 'axes.facecolor', 'savefig.facecolor']:
+        plt.rcParams[param] = '#212946'  # bluish dark grey
+
+
 def generate_mat_vec():
     """
     Generates the respective random matrix and vector
