@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def gauss(matrix, b):
     """
@@ -187,18 +188,62 @@ def polinom_graph(a, b, c, d, e):
     # Creates the data
     x = np.arange(start=-8.15, stop=-2.68, step=0.1, dtype=float)
     f = a * x**4 + b * x**3 + c * x**2 + d * x + e
+    fig, ax = plt.subplots()
 
-    # Plots the curve
-    plt.plot(x, f, '-', color="r")
-    # Plots the points
-    plt.plot(x, f, '.', color="b")
-    plt.grid(linestyle="--")
+    plot_style(x, f, ax)
 
-    plt.axvline(x=0, color='grey')
-    plt.axhline(y=0, color='grey')
+    # plt.axvline(x=0, color='grey')
+    # plt.axhline(y=0, color='grey')
 
-    plt.title('Polinom graph')
+    #plt.title('Polinom graph')
     plt.show()
+
+def plot_style(x, f, ax):
+    colors = [
+        #'#08F7FE',  # teal/cyan
+        '#FE53BB',  # pink
+        '#F5D300',  # yellow
+        '#00ff41',  # matrix green
+        "#3b064d",  # neon purple
+        "#8105d8",  # party violet
+        "#ed0cef",  # Rebel Fucsia
+        "#fe59d7",  # pinky
+    ]
+    plt.style.use("dark_background")
+    for param in ['text.color', 'axes.labelcolor', 'xtick.color', 'ytick.color']:
+        plt.rcParams[param] = '0.9'  # very light grey
+    for param in ['figure.facecolor', 'axes.facecolor', 'savefig.facecolor']:
+        plt.rcParams[param] = '#212946'  # bluish dark grey
+    # Plots the curve
+    ax.plot(x, f, '-', color=colors[0])
+    # Plots the points
+    ax.plot(x, f, 'o', color=colors[0])
+
+    n_shades = 10
+    diff_linewidth = 1.05
+    alpha_value = 0.3 / n_shades
+
+    for n in range(1, n_shades + 1):
+        # Plots the curve
+        ax.plot(x, f, '-', color=colors[0],
+                 linewidth=2+(diff_linewidth*n),
+                 alpha=alpha_value)
+        # Plots the points
+        ax.plot(x, f, 'o', color=colors[0],
+                 linewidth=2+(diff_linewidth*n),
+                 alpha=alpha_value)
+
+    df = pd.DataFrame({'y': f}, index=x)
+    for column, color in zip(df, colors):
+        ax.fill_between(x=df.index,
+                        y1=df[column].values,
+                        y2=[0] * len(df),
+                        color=color,
+                        alpha=0.1)
+
+    ax.grid(color='#2A3459')
+    ax.axhline(y=0, color="#365384")
+
 
 def print_menu():
     """
