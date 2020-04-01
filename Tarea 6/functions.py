@@ -61,27 +61,26 @@ def gauss_jordan(matrix, b):
             matrix[j, :] -= num
     return matrix[:, n:]
 
-
-def estimate_b0_b1(x, y):
+def estimate_c0_c1(x, y):
     """
-    Estimates the values b_0 and b_0 from the linear regression
-    @param x: the values of the x axis
-    @param y: the values of the y axis
-    @return: the b_0 and the b_1 coefficients
+    Estmates the values of the linear regression
+    @param x: x axis data
+    @param y: y axis data
+    @return: the values of the linear regression
     """
-    n = np.size(x)
 
-    # We obtain the mean values of x and y
-    m_x, m_y = np.mean(x), np.mean(y)
+    # Calculate the means of x and y
+    m_x = np.mean(x)
+    m_y = np.mean(y)
 
-    # We calculate the sum of XY and XX
-    sumatoria_xy = np.sum((x - m_x) * (y - m_y))
-    sumatoria_xx = np.sum((x - m_x) ** 2)
+    # The square mean of x
+    m_x2 = np.mean(x**2)
+    m_xy = np.mean(x*y)
+    a = np.array([[1, m_x], [m_x, m_x2]])
+    b = np.array([[m_y, m_xy]]).T
 
-    b_1 = sumatoria_xy / sumatoria_xx
-    b_0 = m_y - b_1 * m_x
-
-    return b_1, b_0
+    # we solve the equation with gauss-jordan method
+    return gauss_jordan(a, b)
 
 def read_excel_files():
     """
@@ -130,19 +129,28 @@ def plot_regression(data, x_lim1=0, x_lim2=22,
 
     for i in range(len(data)):
         x, y = data[i]
-        b_1, b_0 = estimate_b0_b1(x, y)
 
-        y_prediction = b_1 * xf + b_0
+        # Estimate the values of the linear regression
+        c = estimate_c0_c1(x, y)
+        c_1, c_0 = c[1, 0], c[0, 0]
+
+        y_prediction = c_1 * xf + c_0
+        # Plot points
         ax[0].plot(x, y, f"o{colors[i]}")
+        # Plot line
         ax[0].plot(xf, y_prediction, f"-{colors[i]}", label=labels[i])
         ax[0].set_title("Regresion sin Polyfit")
 
+        # Calculate the values of the linear regression with polyfit
         p = np.polyfit(x, y, 1)
         y_prediction = p[0] * xf + p[1]
+        # Plot points
         ax[1].plot(x, y, f"o{colors[i]}")
+        # Plot the regression
         ax[1].plot(xf, y_prediction, f"-{colors[i]}", label=labels[i])
         ax[1].set_title("Regresion con Polyfit")
 
+    # Edit axis
     for axis in ax:
         axis.grid(linestyle="--")
         axis.set_ylabel("Y, variable dependiente")
@@ -151,14 +159,6 @@ def plot_regression(data, x_lim1=0, x_lim2=22,
             axis.legend(loc='upper right')
 
     plt.show()
-
-def plot_styles(colors=[]):
-    plt.style.use("dark_background")
-    for param in ['text.color', 'axes.labelcolor', 'xtick.color', 'ytick.color']:
-        plt.rcParams[param] = '0.9'  # very light grey
-    for param in ['figure.facecolor', 'axes.facecolor', 'savefig.facecolor']:
-        plt.rcParams[param] = '#212946'  # bluish dark grey
-
 
 def generate_mat_vec():
     """
