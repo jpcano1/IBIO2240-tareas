@@ -12,6 +12,7 @@ def plot_function(f, c="#e60000"):
         plt.rcParams[param] = '#212946'  # bluish dark grey
 
     fig, ax = plt.subplots()
+    ax.axhline(y=0, color="#1E1F3C")
 
     x = np.linspace(-5, 5, 1000)
     ax.plot(x, f(x), '-', color=colors[0])
@@ -32,17 +33,14 @@ def plot_function(f, c="#e60000"):
                         y2=[0] * len(df),
                         alpha=0.1)
     ax.grid(color='#2A3459')
-    ax.axhline(y=0, color="#1E1F3C")
     plt.show()
     return
 
 def biseccion(f, x0, x1, tolx, tolf):
     x2_prev = x1
 
-    i = 0
     results = []
     while True:
-        i += 1
         x2 = (x0 + x1) / 2.
         results.append(x2)
 
@@ -62,10 +60,8 @@ def biseccion(f, x0, x1, tolx, tolf):
 def falsa_posicion(f, x0, x1, tolx, tolf):
     x2_prev = x1
 
-    i = 0
     results = []
     while True:
-        i += 1
         x2 = x1 - (f(x1) * (x1 - x0) / (f(x1) - f(x0)))
 
         results.append(x2)
@@ -88,10 +84,9 @@ def punto_fijo(f, g, x1, tolx, tolf):
 
 def newton_raphson(f, x1, tolx, tolf):
     x2_prev = x1
-    i = 0
     results = []
+
     while True:
-        i += 1
         d1_eval = derivative(f, x1)
         x2 = x1 - (f(x1) / d1_eval)
         results.append(x2)
@@ -108,7 +103,23 @@ def newton_raphson(f, x1, tolx, tolf):
     return results
 
 def secante(f, x0, x1, tolx, tolf):
-    pass
+    x2_prev = x1
+    results = []
+
+    while True:
+        x2 = x1 - (f(x1) * (x1 - x0)) / (f(x1) - f(x0))
+        results.append(x2)
+
+        if np.abs(x2 - x2_prev) <= tolx:
+            break
+
+        if f(x2) <= tolf:
+            break
+
+        x0, x1, x2_prev = x1, x2, x2
+
+    return results
+
 
 def print_menu():
     """
@@ -163,34 +174,51 @@ def pick_color():
 
 if __name__ == "__main__":
     finished = False
-    t = 10**-10
 
     def f1(x):
-        func = x ** 4
+        func = x ** 3 + 8
         return func
 
-    x0 = -1.
-    x1 = 4
     while not finished:
         print_menu()
         option = int(input())
         if option == 1:
-            ans = biseccion(f1, x0, x1, t, t)
+            plot_function(f1)
+            print("Basado en la grafica, determine el rango de busqueda")
+            a = float(input("Limite inferior del rango: "))
+            b = float(input("Limite superior del rango: "))
+            t = float(input("Defina la toleracia: "))
+            ans = biseccion(f1, a, b, t, t)
             print_list(ans)
 
         elif option == 2:
-            ans = falsa_posicion(f1, x0, x1, t, t)
+            plot_function(f1)
+            print("Basado en la funcion, determine el rango de busqueda")
+            a = float(input("Limite inferior del rango: "))
+            b = float(input("Limite superior del rango: "))
+            t = float(input("Defina la toleracia en f: "))
+            ans = falsa_posicion(f1, a, b, t, t)
             print_list(ans)
 
         elif option == 3:
             print("Hola")
 
         elif option == 4:
-            ans = newton_raphson(f1, x1, t, t)
+            plot_function(f1)
+            print("Basado en la funcion, determine un punto cercano a la raiz")
+            a = float(input("Punto cercano: "))
+            t = float(input("Defina la toleracia en x: "))
+            ans = newton_raphson(f1, a, t, t)
             print_list(ans)
 
         elif option == 5:
-            print("Hola")
+            plot_function(f1)
+            print("Basado en la funcion, determine el rango de busqueda")
+            a = float(input("Limite inferior del rango: "))
+            b = float(input("Limite superior del rango: "))
+            t = float(input("Defina la toleracia: "))
+            ans = secante(f1, a, b, t, t)
+            print_list(ans)
 
         elif option == 6:
             print("Hola")
