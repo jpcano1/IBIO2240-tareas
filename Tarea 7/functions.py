@@ -76,9 +76,12 @@ def print_menu():
     print("----------Laboratorio 7----------")
     print("Escoja la opcion: ")
     print("1. Metodo de la biseccion")
-    print("2. Metodo de Newton-raphson")
-    print("3. Metodo de falsa posicion")
-    print("4. Salir")
+    print("2. Metodo de falsa posicion")
+    print("3. Metodo del punto fijo")
+    print("4. Metodo de Newton-raphson")
+    print("5. Metodo de la secante")
+    print("6. Tasa de convergencia de una funcion")
+    print("7. Salir")
 
 def print_list(a: list):
     for item in a:
@@ -103,14 +106,23 @@ if __name__ == "__main__":
             print_list(ans)
 
         elif option == 2:
-            ans = newton_raphson(f1, x1, t, t)
-            print_list(ans)
-
-        elif option == 3:
             ans = falsa_posicion(f1, x0, x1, t, t)
             print_list(ans)
 
+        elif option == 3:
+            print("Hola")
+
         elif option == 4:
+            ans = newton_raphson(f1, x1, t, t)
+            print_list(ans)
+
+        elif option == 5:
+            print("Hola")
+
+        elif option == 6:
+            print("Hola")
+
+        elif option == 7:
             finished = True
 
         else:
