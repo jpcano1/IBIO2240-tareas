@@ -79,7 +79,7 @@ import numpy as np
 def f1(x):
     return -x ** 0.25 + np.sin(3.5 * x) + 4 * np.sqrt(x) + 2 * x - 5
 
-x0 = 1.
+x0 = -1.
 x1 = 2.
 
 tolx = 10 ** -10

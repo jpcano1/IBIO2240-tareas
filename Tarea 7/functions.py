@@ -1,5 +1,5 @@
 import numpy as np
-from sympy import *
+from scipy.misc import derivative
 
 def biseccion(f, x0, x1, tolx, tolf):
     x2_prev = x1
@@ -8,7 +8,7 @@ def biseccion(f, x0, x1, tolx, tolf):
     results = []
     while True:
         i += 1
-        x2 = (x0 + x1) / 2
+        x2 = (x0 + x1) / 2.
         results.append(x2)
 
         if np.abs(x2 - x2_prev) <= tolx:
@@ -17,35 +17,51 @@ def biseccion(f, x0, x1, tolx, tolf):
         if np.abs(f(x2)) <= tolf:
             break
 
-        if f1(x2) * f1(x0) < 0:
+        if f(x2) * f(x0) < 0:
             x1 = x2
         else:
             x0 = x2
+
     return results
 
-def false_posicion():
-    pass
-
-def newton_raphson(f, x1, tolx, toly):
-    x = Symbol('x')
-    func = f(x)
-    d1_func = func.diff(x)
-    func = lambdify(x, func)
-    d1_func = lambdify(x, d1_func)
-
+def falsa_posicion(f, x0, x1, tolx, tolf):
     x2_prev = x1
 
     i = 0
     results = []
     while True:
         i += 1
-        x2 = x1 - (func(x1) / d1_func(x1))
+        x2 = x1 - (f(x1) * (x1 - x0) / (f(x1) - f(x0)))
+
+        results.append(x2)
+        if np.abs(x2 - x2_prev) <= tolx:
+            break
+        if np.abs(f(x2)) <= tolf:
+            break
+
+        if f(x2) * f(x0) < 0:
+            x1 = x2
+        else:
+            x0 = x2
+
+        x2_prev = x2
+
+    return results
+
+def newton_raphson(f, x1, tolx, tolf):
+    x2_prev = x1
+    i = 0
+    results = []
+    while True:
+        i += 1
+        d1_eval = derivative(f, x1)
+        x2 = x1 - (f(x1) / d1_eval)
         results.append(x2)
 
         if np.abs(x2 - x2_prev) <= tolx:
             break
 
-        if np.abs(func(x2)) <= toly:
+        if np.abs(f(x2)) <= tolf:
             break
 
         x1 = x2
@@ -61,7 +77,8 @@ def print_menu():
     print("Escoja la opcion: ")
     print("1. Metodo de la biseccion")
     print("2. Metodo de Newton-raphson")
-    print("3. Salir")
+    print("3. Metodo de falsa posicion")
+    print("4. Salir")
 
 def print_list(a: list):
     for item in a:
@@ -76,8 +93,8 @@ if __name__ == "__main__":
         func = x ** 2
         return func
 
-    x0 = 0.
-    x1 = 1.
+    x0 = -1.
+    x1 = 4
     while not finished:
         print_menu()
         option = int(input())
@@ -90,4 +107,11 @@ if __name__ == "__main__":
             print_list(ans)
 
         elif option == 3:
-            break
+            ans = falsa_posicion(f1, x0, x1, t, t)
+            print_list(ans)
+
+        elif option == 4:
+            finished = True
+
+        else:
+            print("Opcion no valida")

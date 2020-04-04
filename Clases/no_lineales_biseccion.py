@@ -62,10 +62,10 @@ print(f"La iteracion es: {iter}")
 import numpy as np
 
 def f1(x):
-    return -x ** 0.25 + np.sin(3.5 * x) + 4 * np.sqrt(x) + 2 * x - 5
+    return x**2
 
-x0 = 1.
-x1 = 2.
+x0 = -1.
+x1 = 1.5
 
 tolx = 10 ** -10
 tolf = tolx
@@ -88,6 +88,7 @@ while True:
         x1 = x2
     else:
         x0 = x2
+    print(f"x0: {x0} x1: {x1}")
 
 print(f"La raiz es: {x2}")
 print(f"La iteracion es: {iter}")
