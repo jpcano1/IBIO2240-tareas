@@ -19,10 +19,10 @@ def plot_function(f, c="#e60000", low=0.01, high=5.):
     for param in ['figure.facecolor', 'axes.facecolor', 'savefig.facecolor']:
         plt.rcParams[param] = '#212946'  # bluish dark grey
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(10, 10))
     ax.axhline(y=0, color="#1E1F3C")
 
-    x = np.linspace(low, high, 1000)
+    x = np.linspace(0.001, high, 1000)
     ax.plot(x, f(x), '-', color=colors[0])
 
     n_shades = 10
@@ -41,6 +41,7 @@ def plot_function(f, c="#e60000", low=0.01, high=5.):
                         y2=[0] * len(df),
                         alpha=0.1)
     ax.grid(color='#2A3459')
+    ax.set(xlim=(low, high), ylim=(-10, high))
     plt.show()
     return
 
@@ -107,6 +108,14 @@ def punto_fijo(f, g, x1, tolx, tolf):
     pass
 
 def newton_raphson(f, x1, tolx, tolf):
+    """
+
+    @param f:
+    @param x1:
+    @param tolx:
+    @param tolf:
+    @return:
+    """
     x2_prev = x1
     results = []
 
@@ -114,11 +123,15 @@ def newton_raphson(f, x1, tolx, tolf):
     func = InterpolatedUnivariateSpline(x, f(x))
     dfdx = func.derivative()
 
+    index = 0
     while True:
+        index += 1
+
         d1_eval = dfdx(x1)
         x2 = x1 - (f(x1) / d1_eval)
         results.append(x2)
 
+        print(f"Iter: {index}, n_r: {x1}, f(n_r): {f(x1)}, x2-x2_prev: {np.abs(x2 - x2_prev)}")
         if np.abs(x2 - x2_prev) <= tolx:
             break
 
@@ -131,6 +144,15 @@ def newton_raphson(f, x1, tolx, tolf):
     return np.array(results)
 
 def secante(f, x0, x1, tolx, tolf):
+    """
+
+    @param f:
+    @param x0:
+    @param x1:
+    @param tolx:
+    @param tolf:
+    @return:
+    """
     x2_prev = x1
     results = []
 
@@ -149,6 +171,12 @@ def secante(f, x0, x1, tolx, tolf):
     return np.array(results)
 
 def convergencia(f, x0, points):
+    """
+    @param f:
+    @param x0:
+    @param points:
+    @return:
+    """
     root_true = opt.fsolve(f, x0)
 
     est_arr = np.abs(points - root_true)
@@ -234,9 +262,12 @@ if __name__ == "__main__":
         func = -3.65 * np.log(x / 5.33) + np.sqrt(2) * np.exp(-c**2 - 4.25) + 10.54 * np.cos(x - 2.2) - h
         return func
 
+    def f4(x):
+        return -1.440 * x**(-2.) + 0.710 * x**(-1.) + 0.088 + 0.0636 * x - 3./5.
+
     print("Escoja la funcion a utilizar durante la ejecucion: ")
-    option = int(input("1. f1, 2. f2 o 3. f3"))
-    func_1 = f1 if option == 1 else (f2 if option == 2 else f3)
+    option = int(input("1. f1\n2. f2\n3. f3\n4. f4\n"))
+    func_1 = f1 if option == 1 else (f2 if option == 2 else (f3 if option == 3 else f4))
 
     while not finished:
         print_menu()
@@ -270,8 +301,8 @@ if __name__ == "__main__":
             a = float(input("Punto cercano: "))
             t = transform(input("Defina la toleracia: "))
             ans = newton_raphson(func_1, a, t, t)
-            print_list(ans)
-            print(f"y: {func_1(ans[-1])}")
+            # print_list(ans)
+            # print(f"y: {func_1(ans[-1])}")
 
         elif option == 5:
             plot_function(func_1)
@@ -288,7 +319,7 @@ if __name__ == "__main__":
 
         elif option == 7:
             a = pick_color()
-            plot_function(func_1, a)
+            plot_function(func_1, a, high=10)
 
         elif option == 8:
             finished = True
