@@ -106,17 +106,31 @@ if __name__ == "__main__":
                                    "Polinomial": y_vandermonde,
                                    "Lagrange": y_lagrange,
                                    "Numpy": y_poly})
-            print(new_df.head())
-
+            print(new_df)
         elif option == 4:
-            pass
+            df = read_data()
+            df = df[:: 4]
+            df.index = list(range(len(df)))
+            c_vandermonde = polynom_coeff(df.loc[:, "x"], df.loc[:, "y"])
+            c_lagrange = lagrange_coeff(df.loc[:, "x"], df.loc[:, "y"])
+            c_poly = np.polyfit(df.loc[:, "x"], df.loc[:, "y"], np.size(df.loc[:, "x"]) - 1)
 
+            y_vandermonde = new_values(c_vandermonde, new_points)
+            y_lagrange = new_values(c_lagrange, new_points)
+            y_poly = new_values(c_poly, new_points)
+
+            new_df = pd.DataFrame({"x_new": new_points,
+                                   "Polinomial": y_vandermonde,
+                                   "Lagrange": y_lagrange,
+                                   "Numpy": y_poly})
+            # new_df.to_excel("Valores.xlsx", sheet_name="Punto 4")
+            print(new_df)
         elif option == 5:
             df = read_data()
             f_spline = spline_coeff(df.loc[:, "x"], df.loc[:, "y"])
             y_spline = f_spline(new_points)
             new_df = pd.DataFrame({"x_new": new_points,
                                    "y_new": y_spline})
-            new_df.to_excel("Valores.xlsx", sheet_name="spline_coeff")
+            # new_df.to_excel("Valores.xlsx", sheet_name="spline_coeff")
         else:
             finished = True
